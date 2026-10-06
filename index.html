@@ -1,195 +1,869 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greenden</title>
-    <!--Tailwind css link-->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
+    <title>Greenden | Bring Nature Home</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["DM Sans", "sans-serif"],
+                        display: ["Playfair Display", "serif"]
+                    },
+                    colors: {
+                        forest: "#16382B",
+                        green: "#2F6B4F",
+                        sage: "#EAF2EC",
+                        cream: "#F7F5EF"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+        }
+
+        .hero {
+            background:
+                linear-gradient(90deg, rgba(15, 42, 31, .88), rgba(15, 42, 31, .35)),
+                url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=2000&q=90");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-card img {
+            transition: transform .5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.07);
+        }
+
+        .fade-up {
+            animation: fadeUp .8s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <!--navbor-->
-    <nav class="bg-green-100 p-3 flex items-center justify-between shadow-xl sticky top-0 z-50">
-        <h1 class="text-2xl">Greenden</h1>
+<body class="bg-white text-slate-800">
 
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="w-6 h-6 md:hidden">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
+<!-- NAVBAR -->
 
 
+<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
 
-        <ul class="flex gap-5 text-green-600 hidden md:flex">
-            <li>
-                <a class="hover:underline" href="index.html">Home</a>
-            </li>
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
 
-            <li>
-                <a class="hover:underline" href="prodect.html">Product</a>
-            </li>
+        <div class="h-20 flex items-center justify-between">
 
-            <li>
-                <a class="hover:underline" href="contact.html">Contact</a>
-            </li>
-        </ul>
-    </nav>
-    <!--Header Section-->
-    <section class="bg-green-100 p-5 md:p-10 flex justify-center ">
-        <div>
-            <p class="mb-4">We offer you a wide range of artificial and natural flowers for your home and office.</p>
-            <h2 class="text-3xl font-bold mb-5 md:text-5xl">Plants for your interiors</h2>
+            <!-- Logo -->
+
+            <a href="index.html" class="flex items-center gap-2">
+
+                <div class="w-10 h-10 rounded-full bg-forest text-white flex items-center justify-center text-xl">
+                    🌿
+                </div>
+
+                <div>
+                    <h1 class="font-bold text-xl text-forest">
+                        Greenden
+                    </h1>
+
+                    <p class="text-[10px] uppercase tracking-widest text-slate-400">
+                        Bring nature home
+                    </p>
+                </div>
+
+            </a>
+
+
+            <!-- Desktop Menu -->
+
+            <div class="hidden md:flex items-center gap-8 font-medium">
+
+                <a href="index.html"
+                   class="text-green hover:text-forest transition">
+                    Home
+                </a>
+
+                <a href="product.html"
+                   class="hover:text-green transition">
+                    Products
+                </a>
+
+                <a href="contact.html"
+                   class="hover:text-green transition">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <!-- Desktop Actions -->
+
+            <div class="hidden md:flex items-center gap-3">
+
+                <button
+                    onclick="showCart()"
+                    class="relative w-10 h-10 rounded-full bg-sage hover:bg-green hover:text-white transition">
+
+                    🛒
+
+                    <span
+                        id="cartCount"
+                        class="absolute -top-1 -right-1 bg-forest text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
+                        0
+                    </span>
+
+                </button>
+
+                <a href="product.html"
+                   class="bg-forest text-white px-5 py-2.5 rounded-full hover:bg-green transition">
+                    Shop Plants
+                </a>
+
+            </div>
+
+
+            <!-- Mobile Menu Button -->
+
+            <button
+                id="menuBtn"
+                class="md:hidden w-11 h-11 rounded-xl bg-sage flex items-center justify-center text-forest text-xl">
+
+                ☰
+
+            </button>
+
+        </div>
+
+
+        <!-- Mobile Menu -->
+
+        <div id="mobileMenu"
+             class="hidden md:hidden pb-5">
+
+            <div class="bg-sage rounded-2xl p-5 flex flex-col gap-4">
+
+                <a href="index.html"
+                   class="font-semibold text-green">
+                    Home
+                </a>
+
+                <a href="product.html"
+                   class="font-semibold hover:text-green">
+                    Products
+                </a>
+
+                <a href="contact.html"
+                   class="font-semibold hover:text-green">
+                    Contact
+                </a>
+
+                <a href="product.html"
+                   class="bg-forest text-white text-center py-3 rounded-xl">
+                    Shop Plants
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- HERO -->
+
+
+<section class="hero min-h-[650px] flex items-center">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 w-full">
+
+        <div class="max-w-2xl text-white fade-up">
+
+            <p class="uppercase tracking-[.25em] text-sm text-green-200 font-semibold mb-5">
+                Naturally beautiful
+            </p>
+
+            <h2 class="font-display text-5xl sm:text-6xl lg:text-7xl leading-tight font-semibold">
+                Bring a little
+                <span class="text-green-200">
+                    green
+                </span>
+                into your life.
+            </h2>
+
+            <p class="mt-6 text-lg text-white/80 leading-relaxed max-w-xl">
+                Discover beautiful indoor plants, natural greenery and
+                everything you need to create your own peaceful space.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mt-9">
+
+                <a href="product.html"
+                   class="bg-white text-forest px-7 py-3.5 rounded-full font-semibold text-center hover:bg-green-100 transition">
+                    Explore Plants →
+                </a>
+
+                <a href="#about"
+                   class="border border-white/50 text-white px-7 py-3.5 rounded-full font-semibold text-center hover:bg-white/10 transition">
+                    Discover Greenden
+                </a>
+
+            </div>
+
+            <div class="flex flex-wrap gap-8 mt-12 text-sm">
+
+                <div>
+                    <p class="text-3xl font-bold">160+</p>
+                    <p class="text-white/70">Plant species</p>
+                </div>
+
+                <div>
+                    <p class="text-3xl font-bold">5K+</p>
+                    <p class="text-white/70">Happy customers</p>
+                </div>
+
+                <div>
+                    <p class="text-3xl font-bold">4.9★</p>
+                    <p class="text-white/70">Customer rating</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- FEATURES -->
+
+
+<section class="py-16 bg-sage">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+            <div class="bg-white rounded-2xl p-6">
+                <div class="text-3xl mb-4">🌱</div>
+                <h3 class="font-bold text-lg">Healthy plants</h3>
+                <p class="text-sm text-slate-500 mt-2">
+                    Carefully selected and freshly delivered plants.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6">
+                <div class="text-3xl mb-4">🚚</div>
+                <h3 class="font-bold text-lg">Fast delivery</h3>
+                <p class="text-sm text-slate-500 mt-2">
+                    Safe and secure delivery right to your doorstep.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6">
+                <div class="text-3xl mb-4">💚</div>
+                <h3 class="font-bold text-lg">Plant care</h3>
+                <p class="text-sm text-slate-500 mt-2">
+                    Helpful care tips for every plant you purchase.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6">
+                <div class="text-3xl mb-4">💬</div>
+                <h3 class="font-bold text-lg">24/7 support</h3>
+                <p class="text-sm text-slate-500 mt-2">
+                    We are always here when you need us.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+
+<section id="about" class="py-24">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
+
             <div>
-                <button class="bg-black rounded p-2 text-white">Shop Now</button>
-                <button class="border border-black rounded p-2 text-black">Watch Video</button>
+
+                <p class="uppercase tracking-widest text-sm font-semibold text-green">
+                    About Greenden
+                </p>
+
+                <h2 class="font-display text-4xl sm:text-5xl font-semibold text-forest mt-3">
+                    Nature makes every space feel better.
+                </h2>
+
+                <p class="text-slate-500 leading-relaxed mt-6">
+                    We believe plants are more than decoration. They bring
+                    calm, freshness and character to the spaces we live in.
+                </p>
+
+                <p class="text-slate-500 leading-relaxed mt-4">
+                    From easy-care indoor plants to beautiful statement
+                    greenery, Greenden helps you create a space you love.
+                </p>
+
+                <a href="contact.html"
+                   class="inline-block mt-7 bg-forest text-white px-6 py-3 rounded-full hover:bg-green transition">
+                    Talk to us
+                </a>
+
             </div>
-            <p class="mt-5">160+plant species | 100+ clients</p>
+
+
+            <div class="grid grid-cols-2 gap-4">
+
+                <img
+                    src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=700&q=85"
+                    class="rounded-3xl h-72 w-full object-cover"
+                    alt="Indoor plant">
+
+                <img
+                    src="https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=700&q=85"
+                    class="rounded-3xl h-72 w-full object-cover mt-10"
+                    alt="Green plant">
+
+            </div>
+
         </div>
 
-        <div class="hidden md:block p-5">
-            <img src="./image/header-image.jpg" alt="header-image" class="w-80">
-        </div>
-        </div>
+    </div>
 
-    </section>
-
-    <!--About-->
-    <section class="bg-white-100 p-5 flex text-center flex-col items-center">
-        <h1 class="text-3xl font-bold mt-5">About Us</h1>
-        <p>This site for those who admire the beauty and harmony of nature</p>
-
-        <div class="md:flex">
-            <div class=" border border-black p-2 m-6">
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-20 inline">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                </svg>
+</section>
 
 
-                <h2 class="text-xl font-medium">Large assortment</h2>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quisquam reiciendis aliquam, ex
-                    molestiae id reprehenderit? Deleniti nam voluptatum illo molestiae, consequatur minima culpa amet, a
-                    veritatis repellat minus ea!</p>
-            </div>
-            <div class=" border border-black p-2 m-6">
 
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-20 inline">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
-                </svg>
+<!-- BEST SELLERS -->
 
 
-                <h2 class="text-xl font-medium">free and fast shipping</h2>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quisquam reiciendis aliquam, ex
-                    molestiae id reprehenderit? Deleniti nam voluptatum illo molestiae, consequatur minima culpa amet, a
-                    veritatis repellat minus ea!</p>
-            </div>
-            <div class=" border border-black p-2 m-6">
+<section class="py-24 bg-cream">
 
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-20 inline">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
-                </svg>
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
 
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-10">
 
-                <h2 class="text-xl font-medium">24/7 Support</h2>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quisquam reiciendis aliquam, ex
-                    molestiae id reprehenderit? Deleniti nam voluptatum illo molestiae, consequatur minima culpa amet, a
-                    veritatis repellat minus ea!</p>
-            </div>
-        </div>
-    </section>
-    <!--best seller-->
-    <section class="p-4 text-center ">
-        <h1 class="text-3xl font-bold text-center mb-5">Best Sellers</h1>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 p-5 gap-2 mt-5 text-center">
             <div>
-                <img src="./image/bestseller-1.jpg" class="inline hover:shadow-xl transform hover:-translate-y-2"
-                    alt="Best Seller" class="mx-auto">
-                <h1>Rose plant</h1>
-                <p>Price: $20</p>
-            </div>
-            <div>
-                <img src="./image/bestseller-2.jpg" class="inline hover:shadow-xl transform hover:-translate-y-2"
-                    alt="Best Seller" class="mx-auto">
-                <h1>snake plant</h1>
-                <p>Price: $15</p>
-            </div>
-            <div>
-                <img src="./image/bestseller-3.jpg" class="inline hover:shadow-xl transform hover:-translate-y-2"
-                    alt="Best Seller" class="mx-auto">
-                <h1>spider plant</h1>
-                <p>Price: $10</p>
-            </div>
-            <div>
-                <img src="./image/bestseller-4.jpg" class="inline hover:shadow-xl transform hover:-translate-y-2"
-                    alt="Best Seller" class="mx-auto">
-                <h1>money plant</h1>
-                <p>Price: $25</p>
-            </div>
-        </div>
-    </section>
 
-    <!--Customer Reviews-->
+                <p class="uppercase tracking-widest text-sm font-semibold text-green">
+                    Customer favourites
+                </p>
 
-    <section>
-        <h1 class="text-3xl font-bold text-center mb-5">Customer Reviews</h1>
-        <div>
-            <div class="bg-green-900 p-5 m-5 text-white">
-                <p>"I recently purchased a few plants from Greenden and I couldn't be happier with my experience. The
-                    plants arrived in perfect condition and were exactly as described on the website. The customer
-                    service team was also very helpful and responsive when I had questions about my order. I would
-                    definitely recommend Greenden to anyone looking for high-quality plants and excellent service!"</p>
-                <p class="font-bold text-yellow-300">- Sarah L.</p>
+                <h2 class="font-display text-4xl sm:text-5xl font-semibold text-forest mt-2">
+                    Best sellers
+                </h2>
 
             </div>
-            <div class="bg-green-900 p-5 m-5 text-white">
-                <p>"I have been a loyal customer of Greenden for several years now and I can honestly say that they are
-                    the best plant company out there. Their selection of plants is unmatched and their prices are very
-                    reasonable. I have purchased everything from small succulents to large indoor trees and every plant
-                    has been healthy and thriving. I also appreciate their commitment to sustainability and eco-friendly
-                    practices. Keep up the great work, Greenden!"</p>
-                <p class="font-bold text-yellow-300">- John D.</p>
 
-            </div>
-            <div class="bg-green-900 p-5 m-5 text-white">
-                <p>"I recently discovered Greenden and I am so glad I did! Their website is easy to navigate and their
-                    product descriptions are very detailed, which made it easy for me to choose the right plants for my
-                    home. When my order arrived, the plants were packaged very well and were in excellent condition. I
-                    also appreciate the care instructions that came with each plant, which have helped me keep them
-                    healthy and thriving. I will definitely be ordering from Greenden again!"</p>
-                <p class="font-bold text-yellow-300">- Emily R.</p>
+            <a href="product.html"
+               class="text-green font-semibold">
+                View all plants →
+            </a>
 
-            </div>
-        </div>
-        <div class=" justify-center text-center mt-5 p-10">
-            <h1 class="text-3xl font-bold text-center mb-5">Join Our New Letter</h1>
-            <p>Signup for our email newspaper to get exesive discounts, update, and more</p>
-            <div class="flex justify-center mt-5">
-                <input type="email" placeholder="Enter your email" class="border border-black p-2 rounded-l">
-                <button class="bg-black text-white p-2 rounded-r">Subscribe</button>
-            </div>
         </div>
 
-    </section>
 
-    <!--Footer-->
-    <footer class="bg-green-100 p-5 text-align-left">
-        <h1 class="text-2xl font-bold mb-2">Greenden</h1>
-        <p>Your one-stop shop for all your plant needs!</p>
-        <p>&copy; 2023 Greenden.com </p>
-    </footer>    
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
 
+            <!-- Product -->
 
+            <div class="product-card bg-white rounded-3xl overflow-hidden group">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Monstera">
+
+                    <button
+                        onclick="toggleWishlist(this)"
+                        class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green font-semibold uppercase">
+                        Indoor plant
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Monstera
+                    </h3>
+
+                    <div class="flex justify-between items-center mt-4">
+
+                        <span class="font-bold text-xl">
+                            ₹899
+                        </span>
+
+                        <button
+                            onclick="addToCart()"
+                            class="bg-forest text-white px-4 py-2 rounded-full text-sm hover:bg-green">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden group">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Snake Plant">
+
+                    <button
+                        onclick="toggleWishlist(this)"
+                        class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green font-semibold uppercase">
+                        Low maintenance
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Snake Plant
+                    </h3>
+
+                    <div class="flex justify-between items-center mt-4">
+
+                        <span class="font-bold text-xl">
+                            ₹699
+                        </span>
+
+                        <button
+                            onclick="addToCart()"
+                            class="bg-forest text-white px-4 py-2 rounded-full text-sm hover:bg-green">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden group">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1597055181300-3c3e1c7c1d8b?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Peace Lily">
+
+                    <button
+                        onclick="toggleWishlist(this)"
+                        class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green font-semibold uppercase">
+                        Air purifier
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Peace Lily
+                    </h3>
+
+                    <div class="flex justify-between items-center mt-4">
+
+                        <span class="font-bold text-xl">
+                            ₹749
+                        </span>
+
+                        <button
+                            onclick="addToCart()"
+                            class="bg-forest text-white px-4 py-2 rounded-full text-sm hover:bg-green">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden group">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Rubber Plant">
+
+                    <button
+                        onclick="toggleWishlist(this)"
+                        class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green font-semibold uppercase">
+                        Statement plant
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Rubber Plant
+                    </h3>
+
+                    <div class="flex justify-between items-center mt-4">
+
+                        <span class="font-bold text-xl">
+                            ₹999
+                        </span>
+
+                        <button
+                            onclick="addToCart()"
+                            class="bg-forest text-white px-4 py-2 rounded-full text-sm hover:bg-green">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- TESTIMONIAL -->
+
+
+<section class="py-24">
+
+    <div class="max-w-4xl mx-auto px-5 text-center">
+
+        <p class="uppercase tracking-widest text-sm font-semibold text-green">
+            Customer love
+        </p>
+
+        <div class="text-4xl mt-5">
+            ★★★★★
+        </div>
+
+        <blockquote class="font-display text-3xl sm:text-4xl text-forest leading-relaxed mt-6">
+            "The plants arrived beautifully packed and healthy.
+            Greenden has completely changed the look and feel of my home."
+        </blockquote>
+
+        <div class="mt-7">
+
+            <p class="font-bold">
+                Sarah Johnson
+            </p>
+
+            <p class="text-sm text-slate-500">
+                Happy Greenden customer
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- NEWSLETTER -->
+
+
+<section class="px-5 pb-24">
+
+    <div class="max-w-7xl mx-auto bg-forest rounded-[2rem] p-8 sm:p-12 lg:p-16">
+
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+
+            <div class="text-white">
+
+                <p class="text-green-200 uppercase tracking-widest text-sm font-semibold">
+                    Stay connected
+                </p>
+
+                <h2 class="font-display text-4xl sm:text-5xl font-semibold mt-3">
+                    Get fresh plant inspiration.
+                </h2>
+
+                <p class="text-white/60 mt-4">
+                    Join our newsletter for plant care tips, new arrivals
+                    and exclusive offers.
+                </p>
+
+            </div>
+
+            <form id="newsletterForm"
+                  class="flex flex-col sm:flex-row gap-3">
+
+                <input
+                    type="email"
+                    required
+                    placeholder="Enter your email"
+                    class="flex-1 px-5 py-4 rounded-xl outline-none">
+
+                <button
+                    class="bg-white text-forest px-7 py-4 rounded-xl font-semibold hover:bg-green-100">
+                    Subscribe
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="bg-slate-950 text-white">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-14">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+            <div>
+
+                <h2 class="text-2xl font-bold">
+                    Greenden
+                </h2>
+
+                <p class="text-slate-400 mt-4 text-sm leading-relaxed">
+                    Beautiful plants for beautiful spaces.
+                    Make your home greener, calmer and happier.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3 class="font-semibold mb-4">
+                    Explore
+                </h3>
+
+                <div class="space-y-3 text-sm text-slate-400">
+
+                    <a href="index.html" class="block hover:text-white">
+                        Home
+                    </a>
+
+                    <a href="product.html" class="block hover:text-white">
+                        Products
+                    </a>
+
+                    <a href="contact.html" class="block hover:text-white">
+                        Contact
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <h3 class="font-semibold mb-4">
+                    Help
+                </h3>
+
+                <div class="space-y-3 text-sm text-slate-400">
+
+                    <p>Shipping</p>
+                    <p>Returns</p>
+                    <p>Plant care</p>
+                    <p>Support</p>
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <h3 class="font-semibold mb-4">
+                    Contact
+                </h3>
+
+                <div class="space-y-3 text-sm text-slate-400">
+
+                    <p>hello@greenden.com</p>
+                    <p>+91 98765 43210</p>
+                    <p>Chennai, India</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="border-t border-white/10 mt-12 pt-6 text-center text-sm text-slate-500">
+            © 2026 Greenden. All rights reserved.
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+    // Mobile menu
+
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuBtn.addEventListener("click", () => {
+
+        mobileMenu.classList.toggle("hidden");
+
+        if (mobileMenu.classList.contains("hidden")) {
+            menuBtn.innerHTML = "☰";
+        } else {
+            menuBtn.innerHTML = "✕";
+        }
+
+    });
+
+
+    // Cart
+
+    let cart = Number(localStorage.getItem("greendenCart")) || 0;
+
+    const cartCount = document.getElementById("cartCount");
+
+    cartCount.innerText = cart;
+
+
+    function addToCart() {
+
+        cart++;
+
+        localStorage.setItem("greendenCart", cart);
+
+        cartCount.innerText = cart;
+
+        alert("Plant added to cart 🌱");
+
+    }
+
+
+    function showCart() {
+
+        alert("You have " + cart + " item(s) in your cart.");
+
+    }
+
+
+    // Wishlist
+
+    function toggleWishlist(button) {
+
+        if (button.innerText === "♡") {
+
+            button.innerText = "♥";
+            button.classList.add("text-red-500");
+
+        } else {
+
+            button.innerText = "♡";
+            button.classList.remove("text-red-500");
+
+        }
+
+    }
+
+
+    // Newsletter
+
+    document.getElementById("newsletterForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            alert("Thank you for subscribing 🌿");
+
+            this.reset();
+
+        });
+
+</script>
 
 </body>
-
 </html>

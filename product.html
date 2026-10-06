@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Greenden | Products</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["DM Sans", "sans-serif"],
+                        display: ["Playfair Display", "serif"]
+                    },
+                    colors: {
+                        forest: "#16382B",
+                        green: "#2F6B4F",
+                        sage: "#EAF2EC",
+                        cream: "#F7F5EF"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+        }
+
+        .product-card img {
+            transition: transform .5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.07);
+        }
+
+    </style>
+
+</head>
+
+
+<body class="bg-[#F8FAF8] text-slate-800">
+
+
+<!-- NAVBAR -->
+
+<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+        <div class="h-20 flex items-center justify-between">
+
+            <a href="index.html" class="flex items-center gap-2">
+
+                <div class="w-10 h-10 rounded-full bg-forest text-white flex items-center justify-center">
+                    🌿
+                </div>
+
+                <div>
+
+                    <h1 class="font-bold text-xl text-forest">
+                        Greenden
+                    </h1>
+
+                    <p class="text-[10px] uppercase tracking-widest text-slate-400">
+                        Plant store
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <div class="hidden md:flex items-center gap-8 font-medium">
+
+                <a href="index.html" class="hover:text-green">
+                    Home
+                </a>
+
+                <a href="product.html" class="text-green">
+                    Products
+                </a>
+
+                <a href="contact.html" class="hover:text-green">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="hidden md:flex items-center gap-3">
+
+                <button onclick="showCart()"
+                        class="relative w-10 h-10 bg-sage rounded-full">
+
+                    🛒
+
+                    <span id="cartCount"
+                          class="absolute -top-1 -right-1 bg-forest text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
+                        0
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <button id="menuBtn"
+                    class="md:hidden w-11 h-11 rounded-xl bg-sage">
+                ☰
+            </button>
+
+        </div>
+
+
+        <div id="mobileMenu" class="hidden md:hidden pb-5">
+
+            <div class="bg-sage rounded-2xl p-5 flex flex-col gap-4">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="product.html" class="font-semibold text-green">
+                    Products
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- PAGE HEADER -->
+
+<section class="bg-forest text-white py-20">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 text-center">
+
+        <p class="text-green-200 uppercase tracking-widest text-sm font-semibold">
+            Our collection
+        </p>
+
+        <h2 class="font-display text-5xl sm:text-6xl font-semibold mt-3">
+            Find your perfect plant.
+        </h2>
+
+        <p class="text-white/60 max-w-xl mx-auto mt-5">
+            Explore our collection of beautiful indoor and outdoor plants.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section class="py-20">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+
+        <!-- Search -->
+
+        <div class="max-w-xl mx-auto mb-10">
+
+            <div class="relative">
+
+                <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search plants..."
+                    class="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 pl-12 outline-none focus:border-green">
+
+                <span class="absolute left-5 top-4">
+                    🔍
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Filter buttons -->
+
+        <div class="flex gap-3 overflow-x-auto pb-3 justify-start md:justify-center mb-12">
+
+            <button
+                class="filterBtn active px-5 py-2.5 rounded-full bg-forest text-white whitespace-nowrap"
+                data-filter="all">
+                All
+            </button>
+
+            <button
+                class="filterBtn px-5 py-2.5 rounded-full bg-white border whitespace-nowrap"
+                data-filter="indoor">
+                Indoor
+            </button>
+
+            <button
+                class="filterBtn px-5 py-2.5 rounded-full bg-white border whitespace-nowrap"
+                data-filter="outdoor">
+                Outdoor
+            </button>
+
+            <button
+                class="filterBtn px-5 py-2.5 rounded-full bg-white border whitespace-nowrap"
+                data-filter="flower">
+                Flowering
+            </button>
+
+            <button
+                class="filterBtn px-5 py-2.5 rounded-full bg-white border whitespace-nowrap"
+                data-filter="low">
+                Easy Care
+            </button>
+
+        </div>
+
+
+        <!-- Product Grid -->
+
+        <div id="productGrid"
+             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+
+            <!-- Product 1 -->
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm"
+                 data-category="indoor"
+                 data-name="Monstera">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Monstera">
+
+                    <button onclick="wishlist(this)"
+                            class="absolute top-4 right-4 bg-white w-10 h-10 rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green uppercase font-semibold">
+                        Indoor
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Monstera
+                    </h3>
+
+                    <div class="flex justify-between mt-4 items-center">
+
+                        <span class="font-bold text-xl">
+                            ₹899
+                        </span>
+
+                        <button onclick="addToCart()"
+                                class="bg-forest text-white px-4 py-2 rounded-full">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 2 -->
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm"
+                 data-category="low"
+                 data-name="Snake Plant">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Snake Plant">
+
+                    <button onclick="wishlist(this)"
+                            class="absolute top-4 right-4 bg-white w-10 h-10 rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green uppercase font-semibold">
+                        Easy care
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Snake Plant
+                    </h3>
+
+                    <div class="flex justify-between mt-4 items-center">
+
+                        <span class="font-bold text-xl">
+                            ₹699
+                        </span>
+
+                        <button onclick="addToCart()"
+                                class="bg-forest text-white px-4 py-2 rounded-full">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 3 -->
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm"
+                 data-category="flower"
+                 data-name="Peace Lily">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1597055181300-3c3e1c7c1d8b?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Peace Lily">
+
+                    <button onclick="wishlist(this)"
+                            class="absolute top-4 right-4 bg-white w-10 h-10 rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green uppercase font-semibold">
+                        Flowering
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Peace Lily
+                    </h3>
+
+                    <div class="flex justify-between mt-4 items-center">
+
+                        <span class="font-bold text-xl">
+                            ₹749
+                        </span>
+
+                        <button onclick="addToCart()"
+                                class="bg-forest text-white px-4 py-2 rounded-full">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 4 -->
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm"
+                 data-category="outdoor"
+                 data-name="Rubber Plant">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Rubber Plant">
+
+                    <button onclick="wishlist(this)"
+                            class="absolute top-4 right-4 bg-white w-10 h-10 rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green uppercase font-semibold">
+                        Outdoor
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Rubber Plant
+                    </h3>
+
+                    <div class="flex justify-between mt-4 items-center">
+
+                        <span class="font-bold text-xl">
+                            ₹999
+                        </span>
+
+                        <button onclick="addToCart()"
+                                class="bg-forest text-white px-4 py-2 rounded-full">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 5 -->
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm"
+                 data-category="indoor"
+                 data-name="Aloe Vera">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Aloe Vera">
+
+                    <button onclick="wishlist(this)"
+                            class="absolute top-4 right-4 bg-white w-10 h-10 rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green uppercase font-semibold">
+                        Indoor
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Aloe Vera
+                    </h3>
+
+                    <div class="flex justify-between mt-4 items-center">
+
+                        <span class="font-bold text-xl">
+                            ₹499
+                        </span>
+
+                        <button onclick="addToCart()"
+                                class="bg-forest text-white px-4 py-2 rounded-full">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 6 -->
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm"
+                 data-category="flower"
+                 data-name="Rose Plant">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1496062031456-07b8f162a322?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Rose Plant">
+
+                    <button onclick="wishlist(this)"
+                            class="absolute top-4 right-4 bg-white w-10 h-10 rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green uppercase font-semibold">
+                        Flowering
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Rose Plant
+                    </h3>
+
+                    <div class="flex justify-between mt-4 items-center">
+
+                        <span class="font-bold text-xl">
+                            ₹599
+                        </span>
+
+                        <button onclick="addToCart()"
+                                class="bg-forest text-white px-4 py-2 rounded-full">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 7 -->
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm"
+                 data-category="low"
+                 data-name="ZZ Plant">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="ZZ Plant">
+
+                    <button onclick="wishlist(this)"
+                            class="absolute top-4 right-4 bg-white w-10 h-10 rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green uppercase font-semibold">
+                        Easy care
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        ZZ Plant
+                    </h3>
+
+                    <div class="flex justify-between mt-4 items-center">
+
+                        <span class="font-bold text-xl">
+                            ₹799
+                        </span>
+
+                        <button onclick="addToCart()"
+                                class="bg-forest text-white px-4 py-2 rounded-full">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 8 -->
+
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm"
+                 data-category="outdoor"
+                 data-name="Fiddle Leaf">
+
+                <div class="relative h-72 overflow-hidden">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=700&q=85"
+                        class="w-full h-full object-cover"
+                        alt="Fiddle Leaf">
+
+                    <button onclick="wishlist(this)"
+                            class="absolute top-4 right-4 bg-white w-10 h-10 rounded-full">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="p-5">
+
+                    <p class="text-xs text-green uppercase font-semibold">
+                        Outdoor
+                    </p>
+
+                    <h3 class="font-bold text-lg mt-1">
+                        Fiddle Leaf
+                    </h3>
+
+                    <div class="flex justify-between mt-4 items-center">
+
+                        <span class="font-bold text-xl">
+                            ₹1,199
+                        </span>
+
+                        <button onclick="addToCart()"
+                                class="bg-forest text-white px-4 py-2 rounded-full">
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <p id="noResults"
+           class="hidden text-center text-slate-500 py-16">
+            No plants found.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+
+<footer class="bg-slate-950 text-white">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-14">
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+            <div>
+                <h2 class="text-2xl font-bold">
+                    Greenden
+                </h2>
+
+                <p class="text-slate-400 mt-4 text-sm">
+                    Bringing beautiful plants into beautiful homes.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="font-semibold mb-4">
+                    Navigation
+                </h3>
+
+                <div class="space-y-3 text-sm text-slate-400">
+                    <a href="index.html" class="block hover:text-white">Home</a>
+                    <a href="product.html" class="block hover:text-white">Products</a>
+                    <a href="contact.html" class="block hover:text-white">Contact</a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold mb-4">
+                    Support
+                </h3>
+
+                <div class="space-y-3 text-sm text-slate-400">
+                    <p>Shipping</p>
+                    <p>Returns</p>
+                    <p>Plant care</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold mb-4">
+                    Contact
+                </h3>
+
+                <div class="space-y-3 text-sm text-slate-400">
+                    <p>hello@greenden.com</p>
+                    <p>+91 98765 43210</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="border-t border-white/10 mt-12 pt-6 text-center text-sm text-slate-500">
+            © 2026 Greenden. All rights reserved.
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    // Mobile menu
+
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuBtn.addEventListener("click", () => {
+
+        mobileMenu.classList.toggle("hidden");
+
+        menuBtn.innerText =
+            mobileMenu.classList.contains("hidden") ? "☰" : "✕";
+
+    });
+
+
+    // Cart
+
+    let cart = Number(localStorage.getItem("greendenCart")) || 0;
+
+    document.getElementById("cartCount").innerText = cart;
+
+
+    function addToCart() {
+
+        cart++;
+
+        localStorage.setItem("greendenCart", cart);
+
+        document.getElementById("cartCount").innerText = cart;
+
+        alert("Added to cart 🌱");
+
+    }
+
+
+    function showCart() {
+
+        alert("You have " + cart + " item(s) in your cart.");
+
+    }
+
+
+    // Wishlist
+
+    function wishlist(button) {
+
+        if (button.innerText === "♡") {
+
+            button.innerText = "♥";
+            button.classList.add("text-red-500");
+
+        } else {
+
+            button.innerText = "♡";
+            button.classList.remove("text-red-500");
+
+        }
+
+    }
+
+
+    // Filter
+
+    const filterButtons =
+        document.querySelectorAll(".filterBtn");
+
+    const products =
+        document.querySelectorAll(".product-card");
+
+    filterButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            filterButtons.forEach(btn => {
+
+                btn.classList.remove(
+                    "bg-forest",
+                    "text-white"
+                );
+
+                btn.classList.add("bg-white");
+
+            });
+
+            button.classList.add(
+                "bg-forest",
+                "text-white"
+            );
+
+            const filter =
+                button.dataset.filter;
+
+            products.forEach(product => {
+
+                if (
+                    filter === "all" ||
+                    product.dataset.category === filter
+                ) {
+
+                    product.classList.remove("hidden");
+
+                } else {
+
+                    product.classList.add("hidden");
+
+                }
+
+            });
+
+        });
+
+    });
+
+
+    // Search
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    searchInput.addEventListener("input", () => {
+
+        const value =
+            searchInput.value.toLowerCase();
+
+        let visible = 0;
+
+        products.forEach(product => {
+
+            const name =
+                product.dataset.name.toLowerCase();
+
+            if (name.includes(value)) {
+
+                product.classList.remove("hidden");
+
+                visible++;
+
+            } else {
+
+                product.classList.add("hidden");
+
+            }
+
+        });
+
+        document.getElementById("noResults")
+            .classList.toggle("hidden", visible !== 0);
+
+    });
+
+</script>
+
+</body>
+</html>
